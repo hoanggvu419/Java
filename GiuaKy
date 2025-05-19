@@ -1,0 +1,177 @@
+interface IShape {
+    double PI = 3.1416;
+
+    void showInfo();
+    double getArea();
+    double getPerimeter();
+}
+class Circle implements IShape {
+    private double radius;
+
+    public Circle(double radius){
+        this.radius = radius; 
+    }
+
+    @Override
+    public double getArea() {
+        return PI*radius*radius;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2*radius*PI;
+    }
+    @Override
+    public void showInfo() {
+        System.out.println("Circle:");
+        System.out.println("Radius:" + radius);
+        System.out.println("Area: " + getArea());
+        System.out.println("Perimeter: " + getPerimeter());
+    }
+}
+class Rectangle implements IShape {
+    private double length;
+    private double width;
+
+
+    public Rectangle(double length, double width){
+        this.length = length;
+        this.width = width; 
+
+    }
+
+    @Override
+    public double getArea() {
+        return length*width;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2*(length + width);
+    }
+    @Override
+    public void showInfo() {
+        System.out.println("Rectangle:");
+        System.out.println("Width:" + length);
+        System.out.println("Length:" + length);
+        System.out.println("Area: " + getArea());
+        System.out.println("Perimeter: " + getPerimeter());
+    }
+}
+public class giuaKyCau1 {
+public static void main(String[] args) {
+    IShape circle = new Circle(40.2);
+    IShape rectangle = new Rectangle(25, 20);
+
+    circle.showInfo();
+    System.out.println();
+    rectangle.showInfo();
+}
+}
+import java.io.*;
+public class giuaKyCau2 {
+   public static void main(String[] args) {
+    String fileName = "int.txt";
+
+    try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(fileName))) {
+      dos.writeInt(10);
+      dos.writeInt(15);
+      dos.writeInt(20);
+      dos.writeInt(25);
+      System.out.println("da ghi 4 so nguyen");
+    } catch(IOException e){
+      e.printStackTrace();
+    }
+    try (DataInputStream dis = new DataInputStream(new FileInputStream(fileName))){
+      int[] numbers = new int[4];
+      for (int i = 0; i<4; i++){
+         numbers[i] = dis.readInt();
+      }
+      int tong2So = numbers[0] + numbers[1];
+      System.out.println("cac so nguyen: ");
+      for(int i = 0; i<4 ; i++) {
+         System.out.println(numbers[i]);
+      }
+      System.out.println("tong hai so dau: " + tong2So);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+   } 
+}
+
+import java.util.*;
+import java.text.*;
+
+public class giuaKyCau3 {
+public static void main(String[] args) {
+    Thread clockThread = new Thread(() ->{
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        while (true) {
+            String currentTime = sdf.format(new Date());
+            System.out.println("Thoi gian hien tai: " + currentTime);
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    );
+    Thread randomThread = new Thread(() ->{
+        Random rand = new Random();
+        int num = rand.nextInt(100) + 1;
+        System.out.println("so ngau nhien: " + num );
+    });
+    clockThread.start();
+    randomThread.start();
+}
+}
+
+import java.util.*;
+public class giuaKyCau4 {
+    public static void main(String[] args) {
+        LinkedList<Integer> list = new LinkedList<>();
+        Random rand = new Random();
+        for (int i = 0; i < 8; i++) {
+            list.add(rand.nextInt(100));
+        }
+        System.out.println("Danh sach ban dau: " + list);
+        list.add(2, 25);
+        System.out.println("da them 25 vao vi tri 2: " + list);
+        list.removeIf(n -> n <30);
+        System.out.println("da xoa cac phan tu nho hon 30: " + list);
+        System.out.println("vi tri cac phan tu tu 40->80: ");
+        for (int i = 0; i <list.size(); i++){
+            int value = list.get(i);
+            if (value >= 40 && value <= 80) {
+                System.out.println(i + "");
+            }
+        }
+    }
+}
+
+@FunctionalInterface 
+        interface Sorter{
+            void sort(int[] arr);
+        }
+public class giuaKyCau5 {
+    public static void main(String[] args) {
+        Sorter sorter = (arr) -> {
+            for (int i =0; i<arr.length - 1; i++){
+                for (int j =i+1; j<arr.length; j++){
+                    if (arr[i] > arr[j]){
+                        int temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+        };
+        int[] arr = {4, 2, 7, 1, 9, 5};
+        sorter.sort(arr);
+        System.out.println("day sau khi sap xep la: " );
+        for (int num : arr){
+            System.out.print(num + " ");
+        }
+    }
+}
