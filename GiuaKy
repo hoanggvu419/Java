@@ -344,3 +344,47 @@ public class giuaKyCau5 {
         }
     }
 }
+
+//lọc: 
+public static void main(String[] args) {
+    List<Person> people = Arrays.asList(
+        new Person("Alice", 20),
+        new Person("Bob", 25),
+        new Person("Charlie", 18),
+        new Person("David", 22)
+    );
+
+    System.out.print("Những người lớn hơn 18 tuổi: ");
+    people.stream()
+        .filter(person -> person.getAge() > 18)
+        .forEach(person -> System.out.print(person.getName() + ", "));
+}
+
+//scanner 
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class StudentScores {
+    public static void main(String[] args) {
+        HashMap<String, Integer> studentScores = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập tên sinh viên (nhập 'kết thúc' để kết thúc): ");
+            String studentName = scanner.nextLine();
+            if (studentName.equalsIgnoreCase("kết thúc")) break;
+
+            System.out.print("Nhập điểm số của sinh viên: ");
+            int score = scanner.nextInt();
+            scanner.nextLine(); // Đọc bỏ dòng thừa sau nextInt()
+
+            studentScores.put(studentName, score);
+        } while (true);
+
+        System.out.println("\nDanh sách sinh viên và điểm số:");
+        studentScores.forEach((name, score) -> {
+            System.out.println(name + ": " + score);
+        });
+    }
+}
+
