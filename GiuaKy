@@ -1,3 +1,4 @@
+//cau 1
 interface IShape {
     double PI = 3.1416;
 
@@ -68,6 +69,81 @@ public static void main(String[] args) {
     rectangle.showInfo();
 }
 }
+
+//cau1
+
+interface Animal{
+    void eat();
+    void showInfo();
+}
+interface Bird extends Animal {
+    void fly();
+}
+interface Horse extends Animal {
+    void run();
+}
+class Pegasus implements Bird, Horse{
+    public String name;
+    private int age;
+
+    public Pegasus(String name, int age){
+        this.name = name;
+        this.age = age;
+    }
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    @Override
+    public void fly(){
+        System.out.println(name + "is flying");
+    }
+    @Override
+    public void eat(){
+        System.out.println(name + "is eating");
+    }
+    @Override
+    public void run(){
+        System.out.println(name + "is running");
+    }
+    @Override
+    public void showInfo(){
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+}
+
+//scanner
+import java.util.*;
+
+public class de2Cau2 {
+    public static void cau2() {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.print("nhap ho ten: ");
+            String name = scanner.nextLine();
+            
+            System.out.print("nhap tuoi: ");
+            int age = Integer.parseInt(scanner.nextLine());
+            System.out.println("ten: " + name);
+            System.out.println("tuoi: " + age);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Loi: toi la so nguyen");
+        } catch (Exception e) {
+            System.out.println("loi: " + e.getMessage());
+        } finally{
+            scanner.close();
+        }
+    }
+    public static void main(String[] args) {
+        cau2();
+    }
+}
+
+
+//cau2
 import java.io.*;
 public class giuaKyCau2 {
    public static void main(String[] args) {
@@ -99,6 +175,43 @@ public class giuaKyCau2 {
    } 
 }
 
+//cau3 
+import java.io.*;
+
+public class de2Cau3 {
+    public static void cau3() {
+        try {
+            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("student.txt"), "UTF-8");
+            writer.write("Vu Viet Hoang \n");
+            writer.write("Vu van a \n");
+            writer.write("nguyen hai anh \n");
+            writer.close();
+            System.out.println("da ghi xong ");
+
+        } catch (IOException e) {
+        System.out.println("loi khi ghi file: " + e.getMessage());
+        }
+        try {
+            InputStreamReader reader = new InputStreamReader(new FileInputStream("student.txt"), "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line;
+            System.out.println("noi dung file student.txt");
+                while ((line = bufferedReader.readLine()) !=null){
+                    System.out.println(line);
+                }
+                bufferedReader.close();
+        } catch (Exception e) {
+            System.out.println("loi khi doc: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        cau3();
+    }
+}
+
+
+//cau3
 import java.util.*;
 import java.text.*;
 
@@ -127,6 +240,39 @@ public static void main(String[] args) {
 }
 }
 
+//cau4 thread
+import java.util.*;
+
+public class de2Cau4 {
+    public static void cau4(){
+        Random rand = new Random();
+        Thread thread1 = new Thread(() -> {
+            String ten = "hoang";
+            while (true) {
+                int index = rand.nextInt(ten.length());
+                char c = ten.charAt(index);
+                System.out.println("ky tu ngau nhien: " + c);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    break;
+                }
+            }
+        });
+        Thread thread2 = new Thread(() -> {
+            int number = -1 * (rand.nextInt(10) +1);
+            System.out.println("so ngau nhien: " + number);
+        });
+        thread1.start();
+        thread2.start();
+    }
+    public static void main(String[] args) {
+        cau4();
+    }
+}
+
+
 import java.util.*;
 public class giuaKyCau4 {
     public static void main(String[] args) {
@@ -147,6 +293,29 @@ public class giuaKyCau4 {
                 System.out.println(i + "");
             }
         }
+    }
+}
+
+//cau 5 arraylist, map
+public class de2Cau5 {
+    public static void cau5(){
+        ArrayList<Pegasus> list = new ArrayList<>();
+        list.add(new Pegasus("Pegasus 1", 10));
+        list.add(new Pegasus("Pegasus 2", 20));
+
+        Map<Integer, Pegasus> map = new HashMap<>();
+        int key = 1;
+        for (Pegasus p : list) {
+            map.put(key++, p);
+        }
+        System.out.println("danh sach pegasus trong map: ");
+        for (Map.Entry<Integer, Pegasus> entry : map.entrySet()){
+            System.out.println("key: " + entry.getKey() + " - ");
+            entry.getValue().showInfo();
+        }
+    }
+    public static void main(String[] args) {
+        cau5();
     }
 }
 
